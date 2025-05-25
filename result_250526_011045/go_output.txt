@@ -1,0 +1,106 @@
+
+=== Go Implementation Performance ===
+Workers: 10, Parallel mode: true, Iterations: 10
+
+Loading data from database...
+Loaded data for 10 tickers
+
+--- adx ---
+Progress: 10/10 - Last execution: 0.0101s (10/10 tickers)
+
+Execution Time Statistics:
+  Min: 0.0087 seconds
+  Max: 0.0144 seconds
+  Avg: 0.0100 seconds
+  P95: 0.0144 seconds
+  P99: 0.0144 seconds
+
+System CPU Usage:
+  Min: 16.13%
+  Max: 25.81%
+  Avg: 19.45%
+
+Process CPU Usage:
+  Min: 551.45%
+  Max: 733.43%
+  Avg: 625.57%
+
+Memory Usage:
+  Min: -0.90 MB
+  Max: 6.26 MB
+  Avg: 1.40 MB
+
+--- atr ---
+Progress: 10/10 - Last execution: 0.0004s (10/10 tickers)
+
+Execution Time Statistics:
+  Min: 0.0001 seconds
+  Max: 0.0004 seconds
+  Avg: 0.0002 seconds
+  P95: 0.0004 seconds
+  P99: 0.0004 seconds
+
+System CPU Usage:
+  Min: 0.00%
+  Max: 33.33%
+  Avg: 3.33%
+
+Process CPU Usage:
+  Min: 0.00%
+  Max: 2520.34%
+  Avg: 252.03%
+
+Memory Usage:
+  Min: 0.00 MB
+  Max: 0.00 MB
+  Avg: 0.00 MB
+
+--- bollinger ---
+Progress: 10/10 - Last execution: 0.0004s (10/10 tickers)
+
+Execution Time Statistics:
+  Min: 0.0001 seconds
+  Max: 0.0005 seconds
+  Avg: 0.0002 seconds
+  P95: 0.0005 seconds
+  P99: 0.0005 seconds
+
+System CPU Usage:
+  Min: -100.00%
+  Max: 50.00%
+  Avg: -5.00%
+
+Process CPU Usage:
+  Min: 0.00%
+  Max: 11497.16%
+  Avg: 1428.78%
+
+Memory Usage:
+  Min: 0.00 MB
+  Max: 0.47 MB
+  Avg: 0.07 MB
+
+--- fibonacci ---
+Progress: 10/10 - Last execution: 0.0065s (10/10 tickers)
+
+Execution Time Statistics:
+  Min: 0.0054 seconds
+  Max: 0.0100 seconds
+  Avg: 0.0072 seconds
+  P95: 0.0100 seconds
+  P99: 0.0100 seconds
+
+System CPU Usage:
+  Min: 9.37%
+  Max: 21.74%
+  Avg: 17.11%
+
+Process CPU Usage:
+  Min: 398.45%
+  Max: 740.81%
+  Avg: 530.74%
+
+Memory Usage:
+  Min: 0.00 MB
+  Max: 0.47 MB
+  Avg: 0.09 MB

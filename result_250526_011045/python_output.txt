@@ -1,0 +1,152 @@
+Running benchmark with 10 iterations
+Using parallel processing with 10 workers
+Loading data from database...
+Loaded data for 10 tickers
+
+=== Python Implementation Performance ===
+Workers: 10, Parallel mode: True, Iterations: 10
+
+
+--- adx ---
+Running iteration 1/10...
+Completed 10 iterations for adx.
+
+Execution Time Statistics:
+Min: 0.0233 seconds
+Max: 0.0254 seconds
+Avg: 0.0244 seconds
+P95: 0.0254 seconds
+P99: 0.0254 seconds
+
+CPU Usage:
+Min: 0.00%
+Max: 1.90%
+Avg: 0.83%
+
+Memory Usage:
+Min: 98.40 MB
+Max: 98.40 MB
+Avg: 98.40 MB
+
+Process CPU Time (User):
+Min: 0.0000 seconds
+Max: 0.0100 seconds
+Avg: 0.0030 seconds
+
+Process CPU Time (System):
+Min: 0.0000 seconds
+Max: 0.0200 seconds
+Avg: 0.0110 seconds
+
+Process CPU Time (Total):
+Min: 0.0100 seconds
+Max: 0.0200 seconds
+Avg: 0.0140 seconds
+
+--- atr ---
+Running iteration 1/10...
+Completed 10 iterations for atr.
+
+Execution Time Statistics:
+Min: 0.0222 seconds
+Max: 0.0247 seconds
+Avg: 0.0233 seconds
+P95: 0.0247 seconds
+P99: 0.0247 seconds
+
+CPU Usage:
+Min: 0.30%
+Max: 1.60%
+Avg: 0.80%
+
+Memory Usage:
+Min: 98.40 MB
+Max: 98.40 MB
+Avg: 98.40 MB
+
+Process CPU Time (User):
+Min: 0.0000 seconds
+Max: 0.0100 seconds
+Avg: 0.0030 seconds
+
+Process CPU Time (System):
+Min: 0.0100 seconds
+Max: 0.0100 seconds
+Avg: 0.0100 seconds
+
+Process CPU Time (Total):
+Min: 0.0100 seconds
+Max: 0.0200 seconds
+Avg: 0.0130 seconds
+
+--- bollinger ---
+Running iteration 1/10...
+Completed 10 iterations for bollinger.
+
+Execution Time Statistics:
+Min: 0.0236 seconds
+Max: 0.0262 seconds
+Avg: 0.0246 seconds
+P95: 0.0262 seconds
+P99: 0.0262 seconds
+
+CPU Usage:
+Min: 0.00%
+Max: 1.60%
+Avg: 0.47%
+
+Memory Usage:
+Min: 98.40 MB
+Max: 98.40 MB
+Avg: 98.40 MB
+
+Process CPU Time (User):
+Min: 0.0000 seconds
+Max: 0.0100 seconds
+Avg: 0.0040 seconds
+
+Process CPU Time (System):
+Min: 0.0100 seconds
+Max: 0.0200 seconds
+Avg: 0.0110 seconds
+
+Process CPU Time (Total):
+Min: 0.0100 seconds
+Max: 0.0200 seconds
+Avg: 0.0150 seconds
+
+--- fibonacci ---
+Running iteration 1/10...
+Completed 10 iterations for fibonacci.
+
+Execution Time Statistics:
+Min: 1.4869 seconds
+Max: 1.9836 seconds
+Avg: 1.7546 seconds
+P95: 1.9836 seconds
+P99: 1.9836 seconds
+
+CPU Usage:
+Min: 0.00%
+Max: 0.60%
+Avg: 0.27%
+
+Memory Usage:
+Min: 98.40 MB
+Max: 98.40 MB
+Avg: 98.40 MB
+
+Process CPU Time (User):
+Min: 0.0000 seconds
+Max: 0.0100 seconds
+Avg: 0.0050 seconds
+
+Process CPU Time (System):
+Min: 0.0100 seconds
+Max: 0.0200 seconds
+Avg: 0.0110 seconds
+
+Process CPU Time (Total):
+Min: 0.0100 seconds
+Max: 0.0300 seconds
+Avg: 0.0160 seconds
