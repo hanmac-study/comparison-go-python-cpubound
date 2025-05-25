@@ -1,0 +1,6 @@
+numpy
+ta-lib
+psycopg2-binary
+sqlalchemy
+python-dotenv
+psutil
