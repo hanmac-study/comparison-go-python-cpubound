@@ -1,0 +1,159 @@
+{
+  "timestamp": "20250526_003328",
+  "python": {
+    "adx": {
+      "execution_time": {
+        "min": 0.3806,
+        "max": 0.4362,
+        "avg": 0.4046,
+        "p95": 0.4362,
+        "p99": 0.4362
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 15.2,
+        "avg": 4.86
+      },
+      "memory_usage": {
+        "min": 102.56,
+        "max": 102.91,
+        "avg": 102.8
+      }
+    },
+    "atr": {
+      "execution_time": {
+        "min": 0.3703,
+        "max": 0.4229,
+        "avg": 0.4004,
+        "p95": 0.4229,
+        "p99": 0.4229
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 16.8,
+        "avg": 3.98
+      },
+      "memory_usage": {
+        "min": 102.92,
+        "max": 103.08,
+        "avg": 102.98
+      }
+    },
+    "bollinger": {
+      "execution_time": {
+        "min": 0.3824,
+        "max": 0.4318,
+        "avg": 0.4008,
+        "p95": 0.4318,
+        "p99": 0.4318
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 15.7,
+        "avg": 5.33
+      },
+      "memory_usage": {
+        "min": 103.08,
+        "max": 103.72,
+        "avg": 103.45
+      }
+    },
+    "fibonacci": {
+      "execution_time": {
+        "min": 2.547,
+        "max": 2.9842,
+        "avg": 2.6308,
+        "p95": 2.9842,
+        "p99": 2.9842
+      },
+      "cpu_usage": {
+        "min": 0.9,
+        "max": 17.9,
+        "avg": 6.85
+      },
+      "memory_usage": {
+        "min": 60.91,
+        "max": 103.98,
+        "avg": 80.59
+      }
+    }
+  },
+  "go": {
+    "adx": {
+      "execution_time": {
+        "min": 0.0105,
+        "max": 0.025,
+        "avg": 0.015,
+        "p95": 0.025,
+        "p99": 0.025
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 92.59,
+        "avg": 16.23
+      },
+      "memory_usage": {
+        "min": 0.0,
+        "max": 7.16,
+        "avg": 0.72
+      }
+    },
+    "atr": {
+      "execution_time": {
+        "min": 0.0001,
+        "max": 0.0002,
+        "avg": 0.0001,
+        "p95": 0.0002,
+        "p99": 0.0002
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      },
+      "memory_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      }
+    },
+    "bollinger": {
+      "execution_time": {
+        "min": 0.0001,
+        "max": 0.0003,
+        "avg": 0.0001,
+        "p95": 0.0003,
+        "p99": 0.0003
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      },
+      "memory_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      }
+    },
+    "fibonacci": {
+      "execution_time": {
+        "min": 0.0072,
+        "max": 0.0093,
+        "avg": 0.0082,
+        "p95": 0.0093,
+        "p99": 0.0093
+      },
+      "cpu_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      },
+      "memory_usage": {
+        "min": 0.0,
+        "max": 0.0,
+        "avg": 0.0
+      }
+    }
+  }
+}

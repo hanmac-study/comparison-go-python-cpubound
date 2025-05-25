@@ -5,41 +5,54 @@
 Python과 Go 구현의 성능을 비교하는 스크립트
 """
 
-import subprocess
-import re
-import sys
-import os
+import io
 import json
 import logging
+import os
+import re
+import subprocess
+import sys
 from datetime import datetime
 
+logger = None
+
+
 # 로깅 설정
-def setup_logger():
+def setup_logger(result_dir=None):
     """로깅 설정 함수"""
     logger = logging.getLogger('run_comparison')
     logger.setLevel(logging.INFO)
-    
+
+    # 기존 핸들러 제거
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+
     # 콘솔 핸들러
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
-    
+
     # 파일 핸들러
-    file_handler = logging.FileHandler('run_comparison.log')
+    log_file = 'run_comparison.log'
+    if result_dir:
+        log_file = os.path.join(result_dir, 'run_comparison.log')
+
+    file_handler = logging.FileHandler(log_file)
     file_handler.setLevel(logging.INFO)
-    
+
     # 포맷 설정
     formatter = logging.Formatter('[run_comparison.py][%(asctime)s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
     console_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
-    
+
     # 핸들러 추가
     logger.addHandler(console_handler)
     logger.addHandler(file_handler)
-    
+
     return logger
 
-# 로거 초기화
-logger = setup_logger()
+
+# 로거 초기화 (처음에는 기본 설정으로)
+
 
 def parse_python_output(output):
     """Python/Go 출력에서 통계 파싱"""
@@ -105,6 +118,7 @@ def parse_python_output(output):
 
     logger.info("Python 출력 파싱 완료")
     return results
+
 
 def parse_go_output(output):
     """Go 출력에서 통계 파싱 (Python과 동일한 형식)"""
@@ -172,6 +186,7 @@ def parse_go_output(output):
     logger.info("Go 출력 파싱 완료")
     return results
 
+
 def run_benchmark(command):
     """벤치마크 실행"""
     logger.info(f"벤치마크 실행: {' '.join(command)}")
@@ -185,12 +200,22 @@ def run_benchmark(command):
     logger.info("벤치마크 실행 완료")
     return stdout
 
-def print_comparison(python_results, go_results):
+
+def print_comparison(python_results, go_results, result_dir=None):
     """결과 비교 출력"""
     logger.info("결과 비교 출력 시작")
-    print("\n" + "="*80)
-    print(" "*25 + "성능 비교 결과")
-    print("="*80)
+
+    # 출력 내용을 저장할 문자열 버퍼
+    output = io.StringIO()
+
+    # 출력 내용을 버퍼와 콘솔에 동시에 작성하는 함수
+    def print_both(text):
+        print(text)
+        output.write(text + "\n")
+
+    print_both("\n" + "=" * 80)
+    print_both(" " * 25 + "성능 비교 결과")
+    print_both("=" * 80)
 
     indicators = ['adx', 'atr', 'bollinger', 'fibonacci']
 
@@ -200,13 +225,13 @@ def print_comparison(python_results, go_results):
             continue
 
         logger.info(f"{indicator.upper()} 지표 비교 출력")
-        print(f"\n{indicator.upper()} 지표 비교:")
-        print("-"*60)
+        print_both(f"\n{indicator.upper()} 지표 비교:")
+        print_both("-" * 60)
 
         # 실행 시간 비교
-        print("\n실행 시간 (초):")
-        print(f"{'메트릭':<10} {'Python':>15} {'Go':>15} {'성능 향상':>15}")
-        print("-"*60)
+        print_both("\n실행 시간 (초):")
+        print_both(f"{'메트릭':<10} {'Python':>15} {'Go':>15} {'성능 향상':>15}")
+        print_both("-" * 60)
 
         metrics = ['min', 'max', 'avg', 'p95', 'p99']
         for metric in metrics:
@@ -214,34 +239,45 @@ def print_comparison(python_results, go_results):
             go_val = go_results[indicator]['execution_time'].get(metric, 0)
             if go_val > 0:
                 speedup = py_val / go_val
-                print(f"{metric.upper():<10} {py_val:>15.4f} {go_val:>15.4f} {speedup:>14.2f}x")
+                print_both(f"{metric.upper():<10} {py_val:>15.4f} {go_val:>15.4f} {speedup:>14.2f}x")
 
         # CPU 사용량 비교
-        print("\nCPU 사용률 (%):")
-        print(f"{'메트릭':<10} {'Python':>15} {'Go':>15}")
-        print("-"*40)
+        print_both("\nCPU 사용률 (%):")
+        print_both(f"{'메트릭':<10} {'Python':>15} {'Go':>15}")
+        print_both("-" * 40)
 
         for metric in ['min', 'max', 'avg']:
             py_val = python_results[indicator]['cpu_usage'].get(metric, 0)
             go_val = go_results[indicator]['cpu_usage'].get(metric, 0)
-            print(f"{metric.upper():<10} {py_val:>15.2f} {go_val:>15.2f}")
+            print_both(f"{metric.upper():<10} {py_val:>15.2f} {go_val:>15.2f}")
 
         # 메모리 사용량 비교
-        print("\n메모리 사용량 (MB):")
-        print(f"{'메트릭':<10} {'Python':>15} {'Go':>15}")
-        print("-"*40)
+        print_both("\n메모리 사용량 (MB):")
+        print_both(f"{'메트릭':<10} {'Python':>15} {'Go':>15}")
+        print_both("-" * 40)
 
         for metric in ['min', 'max', 'avg']:
             py_val = python_results[indicator]['memory_usage'].get(metric, 0)
             go_val = go_results[indicator]['memory_usage'].get(metric, 0)
-            print(f"{metric.upper():<10} {py_val:>15.2f} {go_val:>15.2f}")
-    
+            print_both(f"{metric.upper():<10} {py_val:>15.2f} {go_val:>15.2f}")
+
     logger.info("결과 비교 출력 완료")
 
-def save_results(python_results, go_results):
+    # 출력 내용을 파일로 저장
+    if result_dir:
+        comparison_file = os.path.join(result_dir, 'comparison_results.txt')
+        with open(comparison_file, 'w', encoding='utf-8') as f:
+            f.write(output.getvalue())
+        logger.info(f"비교 결과가 {comparison_file}에 저장되었습니다")
+        print(f"\n비교 결과가 {comparison_file}에 저장되었습니다")
+
+    return output.getvalue()
+
+
+def save_results(python_results, go_results, result_dir):
     """결과를 JSON 파일로 저장"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"benchmark_results_{timestamp}.json"
+    filename = os.path.join(result_dir, f"benchmark_results_{timestamp}.json")
 
     logger.info(f"결과를 {filename}에 저장 시작")
     results = {
@@ -256,10 +292,30 @@ def save_results(python_results, go_results):
     logger.info(f"결과가 {filename}에 저장되었습니다")
     print(f"\n결과가 {filename}에 저장되었습니다.")
 
-def main():
+
+def save_raw_output(output, filename, result_dir):
+    """원시 출력을 파일로 저장"""
+    file_path = os.path.join(result_dir, filename)
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.write(output)
+    logger.info(f"원시 출력이 {file_path}에 저장되었습니다")
+    return file_path
+
+
+def main(logger):
     logger.info("Python vs Go 벤치마크 비교 시작")
     print("Python vs Go 기술 분석 벤치마크 비교")
-    print("="*80)
+    print("=" * 80)
+
+    # 결과 디렉토리 생성
+    timestamp = datetime.now().strftime("%y%m%d_%H%M%S")
+    result_dir = f"result_{timestamp}"
+    os.makedirs(result_dir, exist_ok=True)
+    logger.info(f"결과 디렉토리 생성: {result_dir}")
+    print(f"결과 디렉토리 생성: {result_dir}")
+
+    # 로거 재설정 (결과 디렉토리에 로그 저장)
+    logger = setup_logger(result_dir)
 
     # 명령줄 인자 파싱
     iterations = 100
@@ -293,6 +349,10 @@ def main():
         print("Python 벤치마크 실행 실패")
         return
 
+    # Python 출력 저장
+    python_output_file = save_raw_output(python_output, "python_output.txt", result_dir)
+    logger.info(f"Python 출력이 {python_output_file}에 저장되었습니다")
+
     # Go 벤치마크 실행
     logger.info("Go 벤치마크 실행 시작")
     print("\nGo 벤치마크 실행 중...")
@@ -321,18 +381,25 @@ def main():
         print("Go 벤치마크 실행 실패")
         return
 
+    # Go 출력 저장
+    go_output_file = save_raw_output(go_output, "go_output.txt", result_dir)
+    logger.info(f"Go 출력이 {go_output_file}에 저장되었습니다")
+
     # 결과 파싱
     logger.info("벤치마크 결과 파싱 시작")
     python_results = parse_python_output(python_output)
     go_results = parse_go_output(go_output)
 
     # 결과 비교 출력
-    print_comparison(python_results, go_results)
+    comparison_output = print_comparison(python_results, go_results, result_dir)
 
     # 결과 저장
-    save_results(python_results, go_results)
-    
+    save_results(python_results, go_results, result_dir)
+
     logger.info("벤치마크 비교 완료")
+    print(f"\n모든 결과가 {result_dir} 디렉토리에 저장되었습니다.")
+
 
 if __name__ == "__main__":
-    main()
+    logger = setup_logger()
+    main(logger)
